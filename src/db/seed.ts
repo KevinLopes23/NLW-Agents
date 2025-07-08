@@ -17,6 +17,3 @@ await seed(db, schema).refine((f) => {
 });
 
 await sql.end();
-
-// biome-ignore lint/style/noConsole: only used in dev
-console.log("Seed completed");
