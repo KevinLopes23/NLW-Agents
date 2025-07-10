@@ -8,6 +8,13 @@
       "when": 1751941781341,
       "tag": "0000_steep_marvex",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752106155455,
+      "tag": "0001_illegal_hellfire_club",
+      "breakpoints": true
     }
   ]
 }
