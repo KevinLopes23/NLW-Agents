@@ -70,4 +70,4 @@ npm run dev
 
 ## 📝 Licença
 
-Este projeto está sob a licença ISC.
+Este projeto está sob a licença MIT.
