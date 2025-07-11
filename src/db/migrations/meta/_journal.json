@@ -15,6 +15,13 @@
       "when": 1752106155455,
       "tag": "0001_illegal_hellfire_club",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752263986973,
+      "tag": "0002_nervous_wendell_vaughn",
+      "breakpoints": true
     }
   ]
 }

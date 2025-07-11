@@ -21,9 +21,19 @@ export const uploadAudioRoute: FastifyPluginCallbackZod = (app) => {
         throw new Error("Audio is required");
       }
 
+      const audioBuffer = await audio.toBuffer();
+
+      const audioAsBase64 = audioBuffer.toString("base64");
+
+      const transcription = await transcribeAudio(audioAsBase64, audio.mimetype);
+
+      return { transcription };
+
       // 1.Transcrever o audio
       ///2. Gerar o valor semantico
-
     }
   );
 };
+function transcribeAudio(audioAsBase64: string, mimetype: string) {
+  throw new Error("Function not implemented.");
+}
