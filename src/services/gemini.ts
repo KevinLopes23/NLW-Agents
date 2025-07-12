@@ -7,7 +7,7 @@ const gemini = new GoogleGenAI({
 
 const model = "gemini-2.5-flash";
 
-async function transcribeAudio(audioAsBase64: string, mimeType: string) {
+export async function transcribeAudio(audioAsBase64: string, mimeType: string) {
   const response = await gemini.models.generateContent({
     model,
     contents: [
@@ -25,6 +25,64 @@ async function transcribeAudio(audioAsBase64: string, mimeType: string) {
 
   if (!response.text) {
     throw new Error("Não foi possível transcrever o audio");
+  }
+
+  return response.text;
+}
+
+export async function generateEmbeddings(text: string) {
+  const response = await gemini.models.embedContent({
+    model: "text-embedding-004",
+    contents: [{ text: text }],
+    config: {
+      taskType: "RETRIEVAL_DOCUMENT",
+    },
+  });
+
+  if (!response.embeddings?.[0].values) {
+    throw new Error("Não foi possível gerar os embeddings");
+  }
+
+  return response.embeddings[0].values;
+}
+
+export async function generateAnswer(
+  question: string,
+  transcriptions: string[]
+) {
+  const context = transcriptions.join("\n\n");
+
+  const prompt = `
+  Com base no texto fornecido abaixo como contexto , responda a pergunta de forma clara e precisa. Em português do Brasil.
+  
+
+
+  Contexto: ${context}
+
+
+  Pergunta: ${question}
+
+
+  Instruções:
+  - Use apenas informações no contexto enviado;
+  - Se a resposta não for encontrada no contexto , apenas responda que não possui informações suficientes para responder a pergunta.
+  - Seja objetivo
+  - Mantenha um tom educacional e profissional.
+  - Cite trechos relevantes do contexto se apropriado.
+  - Se for citar o contexto, utilize o termo "Conteudo da aula"
+  `.trim();
+
+  const response = await gemini.models.generateContent({
+    model,
+    contents: [
+      {
+        text: prompt,
+      },
+    ],
+  });
+
+  if (!response.text) {
+    throw new Error("Não foi possível gerar a resposta");
   }
 
   return response.text;
