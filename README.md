@@ -1,30 +1,79 @@
-# NLW Agents
+# 🤖 NLW Agents - Backend
 
-Projeto desenvolvido durante o evento NLW da Rocketseat. Uma API REST para gerenciamento de salas de chat com suporte a vetores.
+Uma API inteligente que permite criar salas de estudo com processamento de áudio e perguntas contextualizadas usando IA.
 
-## 🛠️ Tecnologias
+## 🚀 Tecnologias
 
-- Node.js
-- TypeScript
-- Fastify
-- PostgreSQL com pgvector
-- Drizzle ORM
-- Docker
-- Zod
+- [Node.js](https://nodejs.org/en/) - Runtime JavaScript
+- [TypeScript](https://www.typescriptlang.org/) - Superset JavaScript
+- [Fastify](https://www.fastify.io/) - Framework web rápido e de baixo overhead
+- [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
+- [DrizzleORM](https://orm.drizzle.team/) - ORM TypeScript-first
+- [Google Gemini](https://deepmind.google/technologies/gemini/) - IA para processamento de áudio e geração de respostas
 
-## 📋 Pré-requisitos
+## 📋 Funcionalidades
 
-- Node.js 20+
-- Docker
-- npm ou pnpm
+### Salas de Estudo
 
-## 🚀 Instalação
+- Criação de salas temáticas
+- Upload de áudios de aulas/conteúdo
+- Sistema de perguntas e respostas contextualizado
+
+### Processamento de Áudio
+
+- Transcrição automática de áudio para texto
+- Geração de embeddings para busca semântica
+- Armazenamento otimizado em chunks
+
+### Sistema de Perguntas
+
+- Busca semântica nos chunks de áudio
+- Respostas contextualizadas baseadas no conteúdo
+- Histórico de perguntas e respostas por sala
+
+## 🛠 Estrutura do Projeto
+
+```
+src/
+├── db/                    # Configuração e schemas do banco
+│   ├── migrations/        # Migrações do banco de dados
+│   └── schema/           # Definição das tabelas
+├── http/                  # Rotas e handlers HTTP
+│   └── routes/           # Definição das rotas da API
+└── services/             # Serviços externos (Gemini)
+```
+
+## 🚦 Rotas da API
+
+### Salas
+
+- `POST /rooms` - Cria uma nova sala
+- `GET /rooms` - Lista todas as salas
+
+### Áudio
+
+- `POST /rooms/:roomId/audio` - Upload de áudio para uma sala
+
+### Perguntas
+
+- `POST /rooms/:roomId/questions` - Cria uma nova pergunta
+- `GET /rooms/:roomId/questions` - Lista perguntas de uma sala
+
+## ⚙️ Como Executar
+
+### Pré-requisitos
+
+- Node.js v22 ou superior
+- PostgreSQL com extensão `vector` instalada
+- Chave de API do Google Gemini
+
+### Configuração
 
 1. Clone o repositório
 
 ```bash
-git clone https://github.com/KevinLopes23/NLW-Agents.git
-cd NLW-Agents
+git clone https://github.com/KevinLopes23/NLW-Agents-Back.git
+cd NLW-Agents-Back
 ```
 
 2. Instale as dependências
@@ -36,38 +85,27 @@ npm install
 3. Configure as variáveis de ambiente
 
 ```bash
-# Crie um arquivo .env com:
-PORT=3333
-DATABASE_URL="postgresql://docker:docker@localhost:5432/agents"
+cp .env.example .env
+# Edite o arquivo .env com suas configurações
 ```
 
-4. Inicie o banco de dados
+4. Execute as migrações
 
 ```bash
-docker-compose up -d
+npm run db:migrate
 ```
 
-5. Execute as migrações
-
-```bash
-npx drizzle-kit generate
-npx drizzle-kit migrate
-```
-
-6. Inicie o servidor
+5. Inicie o servidor
 
 ```bash
 npm run dev
 ```
 
-## 🏗️ Estrutura do Projeto
-
-- `/src` - Código fonte
-  - `/db` - Configurações do banco e schemas
-  - `/http` - Rotas e controllers
-- `/docker` - Configurações Docker
-- `drizzle.config.ts` - Configuração do Drizzle ORM
-
 ## 📝 Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+
+## 📬 Contato
+
+Se você tiver alguma dúvida ou sugestão sobre o projeto, fique à vontade para abrir uma issue ou enviar um pull request.

@@ -12,6 +12,7 @@ export async function transcribeAudio(audioAsBase64: string, mimeType: string) {
     model,
     contents: [
       {
+        // biome-ignore lint/style/noUnusedTemplateLiteral: <teste>
         text: `Transcreva o audio para portugues do Brasil. Seja preciso e natural na transcrição. Mantenha a pontuação adequada e divida o texto em paragrafos quando for apropriado`,
       },
       {
@@ -33,7 +34,7 @@ export async function transcribeAudio(audioAsBase64: string, mimeType: string) {
 export async function generateEmbeddings(text: string) {
   const response = await gemini.models.embedContent({
     model: "text-embedding-004",
-    contents: [{ text: text }],
+    contents: [{ text }],
     config: {
       taskType: "RETRIEVAL_DOCUMENT",
     },
